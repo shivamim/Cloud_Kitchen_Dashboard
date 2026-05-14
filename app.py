@@ -407,7 +407,7 @@ def render_sidebar(df: pd.DataFrame):
     st.sidebar.markdown("""
     <div class='brand'>
         <div class='brand-title'>🍳 Kitchen Intelligence</div>
-        <div class='brand-sub'>P&L Analytics Suite · v3.1</div>
+        <div class='brand-sub'>P&L Analytics Suite ·</div>
     </div>
     """, unsafe_allow_html=True)
     st.sidebar.markdown("---")
@@ -1224,10 +1224,10 @@ def main():
     st.markdown("""
     <div style="text-align: center; margin-top: 40px; padding: 20px 0; border-top: 1px solid #e5e0d8;">
         <p style="color: #9ca3af; font-size: 0.75rem; margin: 0;">
-            Kitchen P&L Intelligence Suite v3.1 · Built with Streamlit + Plotly
+            Kitchen P&L Intelligence Suite · Built with Streamlit + Plotly
         </p>
         <p style="color: #9ca3af; font-size: 0.7rem; margin: 4px 0 0 0;">
-            Data refreshes every 5 minutes · Decent Theme
+            Data refreshes every 5 minutes 
         </p>
     </div>
     """, unsafe_allow_html=True)
