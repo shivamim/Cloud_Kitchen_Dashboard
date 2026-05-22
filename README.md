@@ -1,6 +1,6 @@
 # Cloud Kitchen P&L Intelligence Dashboard
 
-Business Intelligence & Financial Analytics System for Cloud Kitchens
+Business Intelligence & Financial Analytics System for Cloud Kitchens - https://cloudkitchenrebel.streamlit.app
 
 ---
 
