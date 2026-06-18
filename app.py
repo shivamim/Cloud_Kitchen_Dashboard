@@ -25,20 +25,7 @@ st.set_page_config(
 )
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
-#  DECENT COLOUR THEME - Warm, Professional, Easy on the Eyes
-# ═══════════════════════════════════════════════════════════════════════════════
-#
-#  Colour Philosophy:
-#  - Primary:    Deep Navy (#1e3a5f) — trustworthy, professional
-#  - Accent:     Warm Teal (#2a9d8f) — calm, approachable
-#  - Success:    Forest Green (#2d6a4f) — natural, positive
-#  - Warning:    Amber (#b45309) — warm caution
-#  - Danger:     Brick Red (#9b2226) — serious but not aggressive
-#  - Surface:    Warm White (#faf9f7) — easy on eyes
-#  - Text:       Charcoal (#2c2c2c) — readable, not harsh black
-#  - Muted:      Warm Grey (#6b7280) — secondary info
-# ═══════════════════════════════════════════════════════════════════════════════
+
 
 st.markdown("""
 <style>
@@ -312,7 +299,7 @@ def styled_axis(title="", fmt="", showgrid=True):
     )
 
 
-# ─── DATA LOADING ───────────────────────────────────────────────────────────
+# ─── DATA LOADING 
 @st.cache_data(ttl=300, show_spinner=False)
 def load_data(filepath) -> pd.DataFrame:
     """Load kitchen P&L data from Excel and enrich with computed columns."""
@@ -366,7 +353,7 @@ def load_data(filepath) -> pd.DataFrame:
     return df
 
 
-# ─── HELPER: Safe Styling Apply ─────────────────────────────────────────────
+# ─── HELPER: Safe Styling Apply 
 def safe_style_apply(styler, func, subset=None):
     """Safely apply a styling function, handling pandas version differences."""
     try:
@@ -378,7 +365,7 @@ def safe_style_apply(styler, func, subset=None):
             return styler
 
 
-# ─── HELPER: Hex to RGBA ────────────────────────────────────────────────────
+# ─── HELPER: Hex to RGBA
 def hex_to_rgba(hex_color, alpha=0.15):
     """Convert a hex colour string to an rgba string for Plotly fill colours."""
     if not isinstance(hex_color, str):
@@ -426,27 +413,27 @@ def render_sidebar(df: pd.DataFrame):
         st.sidebar.markdown("### 🎛️ PNL Filters")
 
         filters["month"] = st.sidebar.multiselect(
-            "📅 Month",
+            " Month",
             options=df["MONTH_STR"].unique().tolist(),
             default=df["MONTH_STR"].unique().tolist()
         )
         filters["store"] = st.sidebar.multiselect(
-            "🏪 Store",
+            " Store",
             options=sorted(df["STORE"].unique().tolist()),
             default=[]
         )
         filters["city"] = st.sidebar.multiselect(
-            "🏙️ City",
+            " City",
             options=sorted(df["CITY"].unique().tolist()),
             default=sorted(df["CITY"].unique().tolist())
         )
         filters["zone"] = st.sidebar.multiselect(
-            "🗺️ Zone",
+            " Zone",
             options=sorted(df["ZONE MAPPING"].unique().tolist()),
             default=sorted(df["ZONE MAPPING"].unique().tolist())
         )
         filters["status"] = st.sidebar.multiselect(
-            "🔵 Status",
+            " Status",
             options=df["STATUS"].unique().tolist(),
             default=df["STATUS"].unique().tolist()
         )
@@ -455,22 +442,22 @@ def render_sidebar(df: pd.DataFrame):
         st.sidebar.markdown("**📦 Cohort Filters**")
 
         filters["rev_cohort"] = st.sidebar.multiselect(
-            "💰 Revenue Cohort",
+            " Revenue Cohort",
             options=sorted(df["REVENUE COHORT"].unique().tolist()),
             default=sorted(df["REVENUE COHORT"].unique().tolist())
         )
         filters["cm_cohort"] = st.sidebar.multiselect(
-            "📊 CM Cohort",
+            " CM Cohort",
             options=sorted(df["CM COHORT"].unique().tolist()),
             default=sorted(df["CM COHORT"].unique().tolist())
         )
         filters["ebitda_cat"] = st.sidebar.multiselect(
-            "📈 EBITDA Category",
+            " EBITDA Category",
             options=df["EBITDA CATEGORY"].unique().tolist(),
             default=df["EBITDA CATEGORY"].unique().tolist()
         )
         filters["ebitda_cohort"] = st.sidebar.multiselect(
-            "🎯 EBITDA Cohort",
+            " EBITDA Cohort",
             options=sorted(df["EBITDA COHORT"].unique().tolist()),
             default=sorted(df["EBITDA COHORT"].unique().tolist())
         )
@@ -480,21 +467,21 @@ def render_sidebar(df: pd.DataFrame):
 
         rev_min, rev_max = float(df["NET REVENUE"].min()), float(df["NET REVENUE"].max())
         filters["rev_range"] = st.sidebar.slider(
-            "💵 Net Revenue (₹)",
+            " Net Revenue (₹)",
             min_value=rev_min, max_value=rev_max,
             value=(rev_min, rev_max), format="₹%,.0f"
         )
 
         cm_min, cm_max = float(df["CM"].min()), float(df["CM"].max())
         filters["cm_range"] = st.sidebar.slider(
-            "📊 Contribution Margin (₹)",
+            " Contribution Margin (₹)",
             min_value=cm_min, max_value=cm_max,
             value=(cm_min, cm_max), format="₹%,.0f"
         )
 
         ebitda_min, ebitda_max = float(df["KITCHEN EBITDA"].min()), float(df["KITCHEN EBITDA"].max())
         filters["ebitda_range"] = st.sidebar.slider(
-            "📈 EBITDA (₹)",
+            " EBITDA (₹)",
             min_value=ebitda_min, max_value=ebitda_max,
             value=(ebitda_min, ebitda_max), format="₹%,.0f"
         )
@@ -504,17 +491,17 @@ def render_sidebar(df: pd.DataFrame):
         st.sidebar.markdown("### 🎛️ Variance Filters")
 
         filters["var_bucket"] = st.sidebar.multiselect(
-            "🔍 Variance Category (₹ Amount)",
+            " Variance Category (₹ Amount)",
             options=["(a) Var < ₹15K", "(b) Var ₹15K-20K", "(c) Var ₹20K-25K", "(d) Var > ₹25K"],
             default=["(a) Var < ₹15K", "(b) Var ₹15K-20K", "(c) Var ₹20K-25K", "(d) Var > ₹25K"]
         )
         filters["city"] = st.sidebar.multiselect(
-            "🏙️ City",
+            " City",
             options=sorted(df["CITY"].unique().tolist()),
             default=sorted(df["CITY"].unique().tolist())
         )
         filters["month"] = st.sidebar.multiselect(
-            "📅 Month",
+            " Month",
             options=df["MONTH_STR"].unique().tolist(),
             default=df["MONTH_STR"].unique().tolist()
         )
@@ -529,7 +516,7 @@ def render_sidebar(df: pd.DataFrame):
     return dashboard, filters
 
 
-# ─── FILTER APPLICATION ─────────────────────────────────────────────────────
+# ─── FILTER APPLICATION 
 
 def apply_pnl_filters(df: pd.DataFrame, f: dict) -> pd.DataFrame:
     """Apply all Kitchen Level P&L filters to the dataframe."""
@@ -634,7 +621,7 @@ def render_kitchen_pnl(df: pd.DataFrame, filters: dict):
         """, unsafe_allow_html=True)
 
     # ── Tabs ──
-    tab1, tab2, tab3, tab4 = st.tabs(["📊 Overview", "📈 Trends", "🏪 Store Analysis", "📋 Data"])
+    tab1, tab2, tab3, tab4 = st.tabs([" Overview", " Trends", " Store Analysis", " Data"])
 
     with tab1:
         render_overview(fdf)
@@ -866,7 +853,7 @@ def render_data_table(fdf: pd.DataFrame):
     st.dataframe(display_df, use_container_width=True, hide_index=True)
 
     csv = fdf.to_csv(index=False).encode("utf-8")
-    st.download_button("📥 Download CSV", csv, "kitchen_pnl_data.csv", "text/csv")
+    st.download_button(" Download CSV", csv, "kitchen_pnl_data.csv", "text/csv")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -894,7 +881,7 @@ def render_variance_pnl(df: pd.DataFrame, filters: dict):
     """, unsafe_allow_html=True)
 
     # ── Insights Summary ──
-    with st.expander("📊 View Full Insights Summary", expanded=False):
+    with st.expander(" View Full Insights Summary", expanded=False):
         total_stores   = fdf["STORE"].nunique()
         active_stores  = fdf[fdf["STATUS"] == "Active"]["STORE"].nunique() if "Active" in fdf["STATUS"].values else 0
         inactive_stores= total_stores - active_stores
@@ -1000,7 +987,7 @@ def render_variance_pnl(df: pd.DataFrame, filters: dict):
         """, unsafe_allow_html=True)
 
     # ── Tabs ──
-    tab1, tab2, tab3 = st.tabs(["📉 Variance Distribution", "🔍 Variance Analysis", "📋 Data"])
+    tab1, tab2, tab3 = st.tabs([" Variance Distribution", " Variance Analysis", " Data"])
 
     with tab1:
         render_variance_distribution(fdf)
@@ -1182,7 +1169,7 @@ def render_variance_data(fdf: pd.DataFrame):
     st.dataframe(display_df, use_container_width=True, hide_index=True)
 
     csv = fdf.to_csv(index=False).encode("utf-8")
-    st.download_button("📥 Download CSV", csv, "variance_pnl_data.csv", "text/csv")
+    st.download_button(" Download CSV", csv, "variance_pnl_data.csv", "text/csv")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
